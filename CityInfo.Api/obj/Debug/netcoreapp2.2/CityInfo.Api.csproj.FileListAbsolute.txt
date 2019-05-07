@@ -1,0 +1,14 @@
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\bin\Debug\netcoreapp2.2\CityInfo.Api.deps.json
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\bin\Debug\netcoreapp2.2\CityInfo.Api.runtimeconfig.json
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\bin\Debug\netcoreapp2.2\CityInfo.Api.runtimeconfig.dev.json
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\bin\Debug\netcoreapp2.2\CityInfo.Api.dll
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\bin\Debug\netcoreapp2.2\CityInfo.Api.pdb
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.csprojAssemblyReference.cache
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.csproj.CoreCompileInputs.cache
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.RazorAssemblyInfo.cache
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.RazorAssemblyInfo.cs
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.AssemblyInfoInputs.cache
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.AssemblyInfo.cs
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.RazorTargetAssemblyInfo.cache
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.dll
+C:\Users\bruno.rodrigo\_git\dotnet\CityInfo\CityInfo.Api\obj\Debug\netcoreapp2.2\CityInfo.Api.pdb
