@@ -12,13 +12,19 @@ namespace CityInfo.Api.Controller
         [HttpGet()]
         public IActionResult GetCities()
         {
-            return new JsonResult(CityDataStore.current.Cities);
+            return Ok(CityDataStore.current.Cities);
 
         }
         [HttpGet("{id}")]
         public IActionResult GetCity(int id)
         {
-            return new JsonResult(CityDataStore.current.Cities.FirstOrDefault(c => c.Id == id));
+            var citiesToReturn = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == id);
+            if (citiesToReturn == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(citiesToReturn);
 
         }
     }
