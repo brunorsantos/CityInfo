@@ -8,12 +8,22 @@ namespace CityInfo.Api.Model
     public class CityDto
     {
 
-        public int Id;
+        public int Id { get; set; }
 
-        public string Name;
+        public string Name { get; set; }
 
-        public string Description;
+        public string Description { get; set; }
 
-        
+        public List<PointOfInterestsDto> pointsOfInterests = new List<PointOfInterestsDto>();
+
+        public int NumberOfPointsOfInterests { get
+            {
+                return pointsOfInterests.Count();
+            }
+        }
+
+
+
+
     }
 }
