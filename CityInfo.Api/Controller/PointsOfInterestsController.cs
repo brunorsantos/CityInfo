@@ -44,7 +44,7 @@ namespace CityInfo.Api.Controller
 
 
         [HttpPost("{cityId}/pointsofinterests")]
-        public IActionResult CreatePointOfIneterest(int cityId, 
+        public IActionResult CreatePointOfIneterest(int cityId,
             [FromBody] PointOfInterestsForCreationDto pointOfInterest)
         {
             if (pointOfInterest == null)
@@ -54,7 +54,7 @@ namespace CityInfo.Api.Controller
 
             if (pointOfInterest.Name == pointOfInterest.Description)
             {
-                ModelState.AddModelError("Description","Fields Should be different");
+                ModelState.AddModelError("Description", "Fields Should be different");
             }
 
             if (!ModelState.IsValid)
@@ -79,10 +79,47 @@ namespace CityInfo.Api.Controller
             };
             city.pointsOfInterests.Add(finalPointOfInterest);
 
-            return CreatedAtRoute("GetPointOfInterest", 
-                new {cityId = cityId, id = finalPointOfInterest.id }, finalPointOfInterest);
+            return CreatedAtRoute("GetPointOfInterest",
+                new { cityId = cityId, id = finalPointOfInterest.id }, finalPointOfInterest);
         }
 
+        [HttpPut("{cityId}/pointsofinterests/{id}")]
+        public IActionResult UpdatePointOfIneterest(int cityId, int id,
+           [FromBody] PointOfInterestsForCreationDto pointOfInterest)
+        {
+            if (pointOfInterest == null)
+            {
+                return BadRequest();
+            }
+
+            if (pointOfInterest.Name == pointOfInterest.Description)
+            {
+                ModelState.AddModelError("Description", "Fields Should be different");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            var pointOfInterestFromStore = city.pointsOfInterests.FirstOrDefault(p => p.id == id);
+
+            if (pointOfInterestFromStore == null)
+            {
+                return NotFound();
+            }
+
+            pointOfInterestFromStore.Name = pointOfInterest.Name;
+            pointOfInterestFromStore.Description = pointOfInterest.Description;
+
+            return NoContent();
+        }
     }
 
 }
