@@ -52,6 +52,16 @@ namespace CityInfo.Api.Controller
                 return BadRequest();
             }
 
+            if (pointOfInterest.Name == pointOfInterest.Description)
+            {
+                ModelState.AddModelError("Description","Fields Should be different");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city == null)
             {
