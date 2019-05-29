@@ -98,6 +98,9 @@ namespace CityInfo.Api.Controller
                 ModelState.AddModelError("Description", "Fields Should be different");
             }
 
+
+            //Para valicoes em projetos mais complexos usar fluentValidation
+            // https://github.com/JeremySkinner/FluentValidation
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -172,6 +175,29 @@ namespace CityInfo.Api.Controller
 
             pointOfInterestFromStore.Name = pointOfInterestToPatch.Name;
             pointOfInterestFromStore.Description = pointOfInterestToPatch.Description;
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{cityId}/pointsofinterests/{id}")]
+        public IActionResult DeletePointOfInterest(int cityId, int id)
+        {
+            var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
+
+            if (city == null)
+            {
+                return BadRequest();
+            }
+
+            var pointOfInterestDataStore = city.pointsOfInterests.FirstOrDefault(p => p.id == id);
+
+            if (pointOfInterestDataStore == null)
+            {
+                return BadRequest();
+            }
+
+            city.pointsOfInterests.Remove(pointOfInterestDataStore);
 
             return NoContent();
 
