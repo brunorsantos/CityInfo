@@ -30,7 +30,7 @@ namespace CityInfo.Api.Controller
                 if (city == null)
                 {
                     _logger.LogInformation($"City {cityId} was not found");
-                    return NotFound("City");
+                    return NotFound();
                 }
                 return Ok(city.pointsOfInterests);
             }
