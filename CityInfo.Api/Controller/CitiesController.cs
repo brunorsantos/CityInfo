@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CityInfo.Api.Controller
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class CitiesController : ControllerBase
     {
         [HttpGet()]

@@ -1,11 +1,20 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CityInfo.Api.Entities
 {
-    public class CityInfoContext
+    public class CityInfoContext : DbContext
     {
+
+        public CityInfoContext(DbContextOptions<CityInfoContext> options) :base(options)
+        {
+            Database.EnsureCreated();
+        }
+        public DbSet<City> Cities { get; set;}
+
+        public DbSet<PointOfInterests> PointsOfInterests { get; set; }
     }
 }
