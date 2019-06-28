@@ -42,6 +42,8 @@ namespace CityInfo.Api
             //});
 
             string connectionString = Startup.Configuration["connectionStrings:cityInfoConnectionString"];
+
+            services.AddScoped<ICityInfoRepository, CityInfoRepository>();
             services.AddDbContext<CityInfoContext>(o => o.UseSqlServer(connectionString));
 #if DEBUG
             services.AddTransient<IMailService,LocalMailService>();
