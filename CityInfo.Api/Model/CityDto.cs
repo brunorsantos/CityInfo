@@ -16,12 +16,13 @@ namespace CityInfo.Api.Model
 
         public List<PointOfInterestsDto> pointsOfInterests = new List<PointOfInterestsDto>();
 
-        public int NumberOfPointsOfInterests { get
+        public int NumberOfPointsOfInterests
+        {
+            get
             {
                 return pointsOfInterests.Count();
             }
         }
-
 
 
 

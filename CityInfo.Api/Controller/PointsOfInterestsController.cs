@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CityInfo.Api.Entities;
 using CityInfo.Api.Model;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.Http;
@@ -17,10 +18,12 @@ namespace CityInfo.Api.Controller
     {
         private ILogger<PointsOfInterestsController> _logger;
         private IMailService _mailService;
-        public PointsOfInterestsController(ILogger<PointsOfInterestsController> logger, IMailService mailService)
+        ICityInfoRepository _cityInfoRepository;
+        public PointsOfInterestsController(ILogger<PointsOfInterestsController> logger, IMailService mailService, ICityInfoRepository cityInfoRepository)
         {
             _logger = logger;
             _mailService = mailService;
+            _cityInfoRepository = cityInfoRepository;
         }
         [HttpGet("{cityId}/pointsofinterests")]
         public IActionResult getPointsOfInterests(int cityId)
@@ -29,13 +32,39 @@ namespace CityInfo.Api.Controller
 
             try
             {
-                var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
-                if (city == null)
+
+                if (!_cityInfoRepository.CityExists(cityId))
                 {
                     _logger.LogInformation($"City {cityId} was not found");
                     return NotFound();
                 }
-                return Ok(city.pointsOfInterests);
+
+                var pointsOfInterestEntity = _cityInfoRepository.GetPointsOfInterests(cityId);
+
+                var result = new List<PointOfInterestsDto>();
+
+                foreach (var pointofInterest in pointsOfInterestEntity)
+                {
+                    result.Add(new PointOfInterestsDto() {
+                        id = pointofInterest.Id,
+                        Name = pointofInterest.Name,
+                        Description = pointofInterest.Description
+
+                    });
+                }
+
+                return Ok(result);
+
+
+
+
+                //var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
+                //if (city == null)
+                //{
+                //    _logger.LogInformation($"City {cityId} was not found");
+                //    return NotFound();
+                //}
+                //return Ok(city.pointsOfInterests);
             }
             catch (Exception)
             {
@@ -48,20 +77,42 @@ namespace CityInfo.Api.Controller
         [HttpGet("{cityId}/pointsofinterests/{id}", Name = "GetPointOfInterest")]
         public IActionResult getPointOfInterest(int cityId, int id)
         {
-            var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            //var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
+            //if (city == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var pointOfInterest = city.pointsOfInterests.FirstOrDefault(p => p.id == id);
+
+            //if (pointOfInterest == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return Ok(pointOfInterest);
+
+            if (!_cityInfoRepository.CityExists(cityId))
             {
+                _logger.LogInformation($"City {cityId} was not found");
                 return NotFound();
             }
 
-            var pointOfInterest = city.pointsOfInterests.FirstOrDefault(p => p.id == id);
+            var pointOfInterestEntity = _cityInfoRepository.GetPointOfInterest(cityId, id);
 
-            if (pointOfInterest == null)
+            if (pointOfInterestEntity == null)
             {
+                _logger.LogInformation($"Point of interest {id} was not found");
                 return NotFound();
             }
 
-            return Ok(pointOfInterest);
+            var result = new PointOfInterestsDto() {
+                id = pointOfInterestEntity.Id,
+                Name = pointOfInterestEntity.Name,
+                Description = pointOfInterestEntity.Description
+            };
+
+            return Ok(result);
         }
 
 

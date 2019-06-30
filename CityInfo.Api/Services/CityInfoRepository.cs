@@ -11,6 +11,10 @@ namespace CityInfo.Api.Services
     {
         CityInfoContext _context;
 
+        public bool CityExists(int id)
+        {
+            return _context.Cities.Any(c => c.Id == id);
+        }
         public CityInfoRepository(CityInfoContext context)
         {
             _context = context;
@@ -27,6 +31,9 @@ namespace CityInfo.Api.Services
             {
                 return _context.Cities.Include(c => c.pointsOfInterests).Where(c => c.Id == cityId).FirstOrDefault();
             }
+
+
+
             return _context.Cities.Where(c => c.Id == cityId).FirstOrDefault();
         }
 
