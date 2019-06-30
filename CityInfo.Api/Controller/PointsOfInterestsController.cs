@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CityInfo.Api.Entities;
 using CityInfo.Api.Model;
 using CityInfo.Api.Services;
@@ -40,31 +41,12 @@ namespace CityInfo.Api.Controller
                 }
 
                 var pointsOfInterestEntity = _cityInfoRepository.GetPointsOfInterests(cityId);
+                var result = Mapper.Map<IEnumerable<PointOfInterestsDto>>(pointsOfInterestEntity);
 
-                var result = new List<PointOfInterestsDto>();
 
-                foreach (var pointofInterest in pointsOfInterestEntity)
-                {
-                    result.Add(new PointOfInterestsDto() {
-                        id = pointofInterest.Id,
-                        Name = pointofInterest.Name,
-                        Description = pointofInterest.Description
-
-                    });
-                }
 
                 return Ok(result);
 
-
-
-
-                //var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
-                //if (city == null)
-                //{
-                //    _logger.LogInformation($"City {cityId} was not found");
-                //    return NotFound();
-                //}
-                //return Ok(city.pointsOfInterests);
             }
             catch (Exception)
             {
@@ -77,20 +59,6 @@ namespace CityInfo.Api.Controller
         [HttpGet("{cityId}/pointsofinterests/{id}", Name = "GetPointOfInterest")]
         public IActionResult getPointOfInterest(int cityId, int id)
         {
-            //var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
-            //if (city == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var pointOfInterest = city.pointsOfInterests.FirstOrDefault(p => p.id == id);
-
-            //if (pointOfInterest == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return Ok(pointOfInterest);
 
             if (!_cityInfoRepository.CityExists(cityId))
             {
@@ -106,11 +74,7 @@ namespace CityInfo.Api.Controller
                 return NotFound();
             }
 
-            var result = new PointOfInterestsDto() {
-                id = pointOfInterestEntity.Id,
-                Name = pointOfInterestEntity.Name,
-                Description = pointOfInterestEntity.Description
-            };
+            var result = Mapper.Map<PointOfInterestsDto>(pointOfInterestEntity);
 
             return Ok(result);
         }

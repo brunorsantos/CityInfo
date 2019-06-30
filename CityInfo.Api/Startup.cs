@@ -43,6 +43,8 @@ namespace CityInfo.Api
 
             string connectionString = Startup.Configuration["connectionStrings:cityInfoConnectionString"];
 
+
+
             services.AddScoped<ICityInfoRepository, CityInfoRepository>();
             services.AddDbContext<CityInfoContext>(o => o.UseSqlServer(connectionString));
 #if DEBUG
@@ -62,7 +64,16 @@ namespace CityInfo.Api
 
             cityInfoContext.EnsureSeedDataForContext();
             app.UseStatusCodePages();
+
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<City, Model.CityWithoutPointOfInterestDto>();
+                cfg.CreateMap<City, Model.CityDto>();
+                cfg.CreateMap<PointOfInterests, Model.PointOfInterestsDto>();
+            });
+
             app.UseMvc();
+
 
             app.Run(async (context) =>
             {
