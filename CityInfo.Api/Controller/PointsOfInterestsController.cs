@@ -99,25 +99,21 @@ namespace CityInfo.Api.Controller
                 return BadRequest(ModelState);
             }
 
-            var city = CityDataStore.current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            if (!_cityInfoRepository.CityExists(cityId))
             {
                 return NotFound();
             }
 
-            var maxPointofInterestId = CityDataStore.current.Cities
-                .SelectMany(c => c.pointsOfInterests).Max(p => p.id);
+            var finalPointOfInterest = Mapper.Map<PointOfInterests>(pointOfInterest);
 
-            var finalPointOfInterest = new PointOfInterestsDto()
-            {
-                id = ++maxPointofInterestId,
-                Name = pointOfInterest.Name,
-                Description = pointOfInterest.Description
-            };
-            city.pointsOfInterests.Add(finalPointOfInterest);
+            _cityInfoRepository.AddPointOfInterestForCity(cityId, finalPointOfInterest);
+
+            _cityInfoRepository.Save();
+
+            var createdPointOfInterest = Mapper.Map<PointOfInterestsDto>(finalPointOfInterest);
 
             return CreatedAtRoute("GetPointOfInterest",
-                new { cityId = cityId, id = finalPointOfInterest.id }, finalPointOfInterest);
+                new { cityId = cityId, id = createdPointOfInterest.id }, createdPointOfInterest);
         }
 
         [HttpPut("{cityId}/pointsofinterests/{id}")]
