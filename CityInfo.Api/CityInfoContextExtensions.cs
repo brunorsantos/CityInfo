@@ -22,9 +22,9 @@ namespace CityInfo.Api
                 {
                     Name = "Test city",
                     Description = "DEscription test1",
-                    pointsOfInterests = new List<PointOfInterests>()
+                    pointsOfInterests = new List<PointOfInterestsEntity>()
                     {
-                        new PointOfInterests()
+                        new PointOfInterestsEntity()
                         {
                             Name = "Point of interest 1",
                             Description = "Point of interest description 1"
@@ -36,9 +36,9 @@ namespace CityInfo.Api
                 {
                     Name = "Test city2",
                     Description = "DEscription test2",
-                    pointsOfInterests = new List<PointOfInterests>()
+                    pointsOfInterests = new List<PointOfInterestsEntity>()
                     {
-                        new PointOfInterests()
+                        new PointOfInterestsEntity()
                         {
                             Name = "Point of interest 2",
                             Description = "Point of interest description 2"

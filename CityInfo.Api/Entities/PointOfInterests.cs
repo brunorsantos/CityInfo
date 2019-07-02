@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CityInfo.Api.Entities
 {
-    public class PointOfInterests
+    public class PointOfInterestsEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -37,18 +37,18 @@ namespace CityInfo.Api.Services
             return _context.Cities.Where(c => c.Id == cityId).FirstOrDefault();
         }
 
-        public PointOfInterests GetPointOfInterest(int cityId, int pointOfInterestId)
+        public PointOfInterestsEntity GetPointOfInterest(int cityId, int pointOfInterestId)
         {
             return _context.PointsOfInterests.Where(p => p.CityId == cityId && p.Id == pointOfInterestId).FirstOrDefault();
 
         }
 
-        public IEnumerable<PointOfInterests> GetPointsOfInterests(int cityId)
+        public IEnumerable<PointOfInterestsEntity> GetPointsOfInterests(int cityId)
         {
             return _context.PointsOfInterests.Where(p => p.CityId == cityId).ToList();
         }
 
-        public void AddPointOfInterestForCity(int cityId, PointOfInterests pointOfInterest)
+        public void AddPointOfInterestForCity(int cityId, PointOfInterestsEntity pointOfInterest)
         {
             var city = this.GetCity(cityId, false);
             city.pointsOfInterests.Add(pointOfInterest);
@@ -57,6 +57,11 @@ namespace CityInfo.Api.Services
         public bool Save()
         {
             return _context.SaveChanges() >= 0;
+        }
+
+        public void DeletePointOfInterest(PointOfInterestsEntity pointOfInterest)
+        {
+            _context.PointsOfInterests.Remove(pointOfInterest);
         }
     }
 }

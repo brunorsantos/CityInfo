@@ -15,6 +15,6 @@ namespace CityInfo.Api.Entities
         }
         public DbSet<City> Cities { get; set;}
 
-        public DbSet<PointOfInterests> PointsOfInterests { get; set; }
+        public DbSet<PointOfInterestsEntity> PointsOfInterests { get; set; }
     }
 }
